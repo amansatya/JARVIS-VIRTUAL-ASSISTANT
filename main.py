@@ -21,6 +21,10 @@ def process(c):
         webbrowser.open("https://linkedin.com")
     elif "open github" in c.lower():
         webbrowser.open("https://github.com")
+    elif c.lower().startswith("play"):
+        song=c.lower().split(" ")[1]
+        link=musiclibrary.music[song]
+        webbrowser.open(link)
 
 if __name__ == '__main__':
     speak("INITIALIZING JARVIS A VIRTUAL ASSISTANT")
@@ -36,7 +40,7 @@ if __name__ == '__main__':
                 audio = r.listen(source, timeout=5, phrase_time_limit=5)
             word = r.recognize_google(audio)
             if word.lower() == "jarvis":
-                speak("YA")
+                speak("WELCOME")
                 # Listen for command
                 with sr.Microphone() as source:
                     print("JARVIS ACTIVE...")
