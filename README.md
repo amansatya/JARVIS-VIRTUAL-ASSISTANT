@@ -95,14 +95,7 @@ python main.py
 ---
 
 ## 🎬 Demo Video
-To add a **demo video** showing JARVIS in action:
-1. Record a **screen recording**.
-2. Upload it to **YouTube**.
-3. Embed it here:
-\`\`\`md
 [![Watch the demo](https://img.youtube.com/vi/kR6L11LqDBA/0.jpg)](https://youtu.be/kR6L11LqDBA)
-\`\`\`
-4. Replace \`YOUR_VIDEO_ID\` with your **YouTube video ID**.
 
 ---
 
