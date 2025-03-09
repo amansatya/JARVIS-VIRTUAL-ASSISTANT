@@ -10,8 +10,8 @@ import os
 
 recognizer = sr.Recognizer()
 engine = pyttsx3.init()
-newsapi = "80599a8a4b614d64bf73a6635c983873"
-genai.configure(api_key="AIzaSyCvjgchi7OTfwSlDKGCSjgnPLQALWVXRoQ")
+newsapi = "<YOUR API KEY>"
+genai.configure(api_key="<YOUR API KEY>")
 
 
 def speak_old(text):
