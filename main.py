@@ -7,11 +7,16 @@ import google.generativeai as genai
 from gtts import gTTS
 import pygame
 import os
+from dotenv import load_dotenv
 
 recognizer = sr.Recognizer()
 engine = pyttsx3.init()
-newsapi = "<YOUR API KEY>"
-genai.configure(api_key="<YOUR API KEY>")
+load_dotenv()
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+NEWS_API_KEY = os.getenv("NEWS_API_KEY")
+
+# Configure Gemini API
+genai.configure(api_key=GEMINI_API_KEY)
 
 
 def speak_old(text):
@@ -80,7 +85,7 @@ def process(c):
         link = musiclibrary.music[song]
         webbrowser.open(link)
     elif "news" in c.lower():
-        re = requests.get(f"https://newsapi.org/v2/top-headlines?country=us&apiKey={newsapi}")
+        re = requests.get(f"https://newsapi.org/v2/top-headlines?country=us&apiKey={NEWS_API_KEY}")
         if re.status_code == 200:
             data = re.json()
             if data["status"] == "ok" and "articles" in data:
