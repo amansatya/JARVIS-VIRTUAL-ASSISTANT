@@ -104,7 +104,8 @@ python main.py
 ## 🎬 Demo Video
 Watch JARVIS in action! Click the thumbnail below to view the demo:
 
-[![Watch the demo](https://img.youtube.com/vi/kR6L11LqDBA/0.jpg)](https://youtu.be/kR6L11LqDBA)
+[![Watch the demo](https://img.youtube.com/vi/hw6AFHdwU3w/0.jpg)](https://youtu.be/hw6AFHdwU3w)
+
 
 ---
 
