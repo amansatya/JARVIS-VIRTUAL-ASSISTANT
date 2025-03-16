@@ -102,9 +102,7 @@ python main.py
 ---
 
 ## 🎬 Demo Video
-Watch JARVIS in action! Click the thumbnail below to view the demo:
-
-[![Watch the demo](https://img.youtube.com/vi/hw6AFHdwU3w/0.jpg)](https://youtu.be/hw6AFHdwU3w)
+🔗 Watch the demo here (Add YouTube link when available)
 
 
 ---
