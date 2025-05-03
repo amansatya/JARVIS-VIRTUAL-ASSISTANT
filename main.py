@@ -28,7 +28,7 @@ def aiProcess(c):
     try:
         model = genai.GenerativeModel("gemini-1.5-pro-latest")
         response = model.generate_content(
-            c, stream=True, generation_config={"max_output_tokens": 50}
+            c,stream=True,generation_config={"max_output_tokens": 50}
         )
         full_response = ""
         for chunk in response:
