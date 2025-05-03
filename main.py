@@ -28,7 +28,7 @@ def aiProcess(c):
     try:
         model = genai.GenerativeModel("gemini-1.5-pro-latest")
         response = model.generate_content(
-            c,stream=True,generation_config={"max_output_tokens": 50}
+            c, stream=True, generation_config={"max_output_tokens": 50}
         )
         full_response = ""
         for chunk in response:
@@ -53,7 +53,7 @@ def process(c):
     elif "open github" in c.lower():
         webbrowser.open("https://github.com")
     elif c.lower().startswith("play"):
-        song = c.lower().split(" ")[1]
+        song = c.lower().split(" ", 1)[1]
         link = musiclibrary.music.get(song, None)
         if link:
             webbrowser.open(link)
@@ -80,18 +80,35 @@ def process(c):
 if __name__ == '__main__':
     speak("INITIALIZING JARVIS A VIRTUAL ASSISTANT")
     while True:
-        r = sr.Recognizer()
         try:
             with sr.Microphone() as source:
-                print("LISTENING...")
-                audio = r.listen(source, timeout=5, phrase_time_limit=5)
-            word = r.recognize_google(audio)
-            if word.lower() == "jarvis":
-                speak("WELCOME")
-                with sr.Microphone() as source:
-                    print("JARVIS ACTIVE...")
-                    audio = r.listen(source, timeout=5, phrase_time_limit=5)
-                    command = r.recognize_google(audio)
-                    process(command)
+                print("LISTENING FOR WAKE WORD...")
+                recognizer.adjust_for_ambient_noise(source, duration=1)
+                try:
+                    audio = recognizer.listen(source, timeout=5, phrase_time_limit=5)
+                    word = recognizer.recognize_google(audio)
+                    print(f"Heard: {word}")
+                    if "jarvis" in word.lower():
+                        speak("WELCOME")
+                        with sr.Microphone() as source:
+                            print("JARVIS ACTIVE, LISTENING FOR COMMAND...")
+                            recognizer.adjust_for_ambient_noise(source, duration=1)
+                            try:
+                                audio = recognizer.listen(source, timeout=5, phrase_time_limit=5)
+                                command = recognizer.recognize_google(audio)
+                                print(f"Command: {command}")
+                                process(command)
+                            except sr.UnknownValueError:
+                                print("Sorry, I couldn't understand the command.")
+                                speak("Sorry, I couldn't understand the command.")
+                            except sr.WaitTimeoutError:
+                                print("Timeout: No command detected.")
+                                speak("I didn't hear any command.")
+                except sr.WaitTimeoutError:
+                    print("Timeout: No wake word detected.")
+                except sr.UnknownValueError:
+                    print("Wake word not recognized.")
+                except sr.RequestError as e:
+                    print(f"Speech recognition service error: {e}")
         except Exception as e:
-            print("Error; {0}".format(e))
+            print(f"Error: {e}")
