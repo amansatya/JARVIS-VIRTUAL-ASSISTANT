@@ -8,51 +8,39 @@ from gtts import gTTS
 import pygame
 import os
 from dotenv import load_dotenv
-
-# Load environment variables
 load_dotenv()
 newsapi = os.getenv("NEWS_API_KEY")
 genai_api_key = os.getenv("GENAI_API_KEY")
 genai.configure(api_key=genai_api_key)
-
 recognizer = sr.Recognizer()
 engine = pyttsx3.init()
-
 def speak(text):
     tts = gTTS(text)
     tts.save('temp.mp3')
-
     pygame.mixer.init()
     pygame.mixer.music.load('temp.mp3')
     pygame.mixer.music.play()
-
     while pygame.mixer.music.get_busy():
         pygame.time.Clock().tick(10)
-
     pygame.mixer.music.unload()
     os.remove("temp.mp3")
-
 def aiProcess(c):
     try:
         model = genai.GenerativeModel("gemini-1.5-pro-latest")
         response = model.generate_content(
             c, stream=True, generation_config={"max_output_tokens": 50}
         )
-
         full_response = ""
         for chunk in response:
             if chunk.text:
                 print(chunk.text, end="", flush=True)
                 speak(chunk.text)
                 full_response += chunk.text
-
         print("\n")
         return full_response if full_response else "Sorry, I couldn't process that."
-
     except Exception as ex:
         print(f"Error in AI processing: {ex}")
         return "There was an error processing your request."
-
 def process(c):
     if "open google" in c.lower():
         webbrowser.open("https://google.com")
@@ -89,7 +77,6 @@ def process(c):
     else:
         output = aiProcess(c)
         speak(output)
-
 if __name__ == '__main__':
     speak("INITIALIZING JARVIS A VIRTUAL ASSISTANT")
     while True:
